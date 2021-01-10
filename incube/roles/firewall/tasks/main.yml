@@ -1,0 +1,19 @@
+---
+# tasks file for incube
+
+- name: permit traffic in default zone for http service
+  ansible.posix.firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+
+- name: permit traffic in default zone for ntp service
+  ansible.posix.firewalld:
+    port: 123/udp
+    permanent: yes
+    state: enabled
+
+- name: restart firewalld
+  systemd:
+    name: firewalld
+    state: restarted

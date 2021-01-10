@@ -8,9 +8,10 @@
   become_method: sudo
   tasks:
   roles:
-    #- ssh-user
-    #- install-pkg
-    #- ntp-server
-    #- database
+    - ssh-user
+    - install-pkg
+    - ntp-server
+    - database
     - webserver
     - wordpress
+    - firewall
