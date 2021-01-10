@@ -12,4 +12,5 @@
     #- install-pkg
     #- ntp-server
     #- database
-    #- webserver
+    - webserver
+    - wordpress

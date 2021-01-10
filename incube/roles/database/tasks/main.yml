@@ -22,8 +22,8 @@
 - shell: cat /var/log/mysqld.log | grep "temporary password" | grep -oE '[^ ]+$'
   register: tmp_root_password
 
-#- name: Set new password from temporary password (root)
-  #shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_root_password }}'');" --connect-expired-password -uroot -p"{{ tmp_root_password.stdout }}"'
+- name: Set new password from temporary password (root)
+  shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_root_password }}'');" --connect-expired-password -uroot -p"{{ tmp_root_password.stdout }}"'
 
 - name: Creates database for WordPress
   mysql_db:

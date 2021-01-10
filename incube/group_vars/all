@@ -1,0 +1,6 @@
+---
+#MySQL Settings
+mysql_root_password: "!P@ssw0rd!"
+mysql_db: "wpdb"
+mysql_user: "wpuser"
+mysql_password: "!P@ssw0rd!"
