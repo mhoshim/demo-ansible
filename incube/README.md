@@ -74,3 +74,5 @@
   
   `ansible-playbook main.yml -i hosts --ask-pass -K`
   
+  note: update your IP address to the host file
+  
