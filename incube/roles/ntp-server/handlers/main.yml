@@ -1,0 +1,6 @@
+---
+# handlers file for incube
+- name: restart ntp
+  ansible.builtin.service:
+    name: ntpd
+    state: restarted

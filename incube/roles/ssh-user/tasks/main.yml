@@ -1,0 +1,11 @@
+---
+# tasks file for incube
+
+- name: Add a new user
+  user:
+    name: "{{ username }}"
+    password: "{{ user_password }}"
+    shell: "/bin/bash"
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa

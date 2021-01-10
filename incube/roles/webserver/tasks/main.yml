@@ -1,0 +1,49 @@
+---
+# tasks file for incube
+
+- name: Add repository for nginx 1.18
+  yum_repository:
+    name: nginx
+    description: nginx RPM repo
+    baseurl: http://nginx.org/packages/centos/$releasever/$basearch/
+    gpgcheck: yes
+    gpgkey: https://nginx.org/keys/nginx_signing.key
+    enabled: yes
+
+- name: Add repository for php-fpm 7.4
+  yum_repository:
+    name: remi-php74
+    description: Remi's PHP 7.4 RPM repo
+    mirrorlist: http://rpms.remirepo.net/enterprise/$releasever/php74/mirror
+    gpgcheck: yes
+    gpgkey: http://rpms.remirepo.net/RPM-GPG-KEY-remi
+    enabled: yes
+
+- name: Install a list of packages
+  yum:
+    name:
+      - nginx
+      - php
+      - php-mysqlnd
+      - php-fpm
+      - php-cli
+    state: present
+
+- name: Copy www.conf file
+  copy:
+    src: www.conf
+    dest: /etc/php-fpm.d/www.conf
+
+- name: Copy default.conf file
+  copy:
+    src: default.conf
+    dest: /etc/nginx/conf.d/default.conf
+
+- name: Start and Enable service nginx and php-fpm
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  with_items:
+    - php-fpm
+    - nginx

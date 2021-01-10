@@ -1,0 +1,42 @@
+---
+# tasks file for incube
+
+- name: Install Percona Repo
+  yum:
+    name: https://repo.percona.com/yum/percona-release-latest.noarch.rpm
+    state: present
+
+- name: Install percona mysql 5.7
+  yum:
+    name: 
+      - Percona-Server-server-57
+      - MySQL-python
+    state: present
+
+- name: Start mysqld service
+  systemd:
+    name: mysqld
+    state: started
+    enabled: yes
+
+- shell: cat /var/log/mysqld.log | grep "temporary password" | grep -oE '[^ ]+$'
+  register: tmp_root_password
+
+#- name: Set new password from temporary password (root)
+  #shell: 'mysql -e "SET PASSWORD = PASSWORD(''{{ mysql_root_password }}'');" --connect-expired-password -uroot -p"{{ tmp_root_password.stdout }}"'
+
+- name: Creates database for WordPress
+  mysql_db:
+    name: "{{ mysql_db }}"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+
+- name: Create MySQL user for WordPress
+  mysql_user:
+    name: "{{ mysql_user }}"
+    password: "{{ mysql_password }}"
+    priv: "{{ mysql_db }}.*:ALL"
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root_password }}"

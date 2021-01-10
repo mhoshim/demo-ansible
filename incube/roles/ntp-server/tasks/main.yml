@@ -1,0 +1,19 @@
+---
+# tasks file for incube
+
+- name: Stop and disable service chronyd
+  service:
+    name: chronyd
+    state: stopped
+    enabled: no
+
+- name: Enable service ntp
+  service:
+    name: ntpd
+    enabled: yes
+
+- name: Copy ntp file
+  copy:
+    src: ntp.conf 
+    dest: /etc/ntp.conf
+  notify: restart ntp

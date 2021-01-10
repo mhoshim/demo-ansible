@@ -1,0 +1,15 @@
+---
+# defaults file for incube
+
+- name: create ssh user
+  hosts: all
+  user: monowar
+  become: yes
+  become_method: sudo
+  tasks:
+  roles:
+    #- ssh-user
+    #- install-pkg
+    #- ntp-server
+    #- database
+    #- webserver

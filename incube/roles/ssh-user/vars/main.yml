@@ -1,0 +1,4 @@
+---
+# vars file for incube
+user_password: "$5$j5BmU6heaGbM$.DycFIMG5.UaBnj0SXTmj8utnC3sY6FF9t1dVSv2VkB" # Put new user password here '!P@ssw0rd!'
+username: "johndoe"
